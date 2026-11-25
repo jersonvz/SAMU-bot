@@ -5,8 +5,7 @@ app = Flask(__name__)
 def home():
     return "Bot activo"
 def keep_alive():
-    threading.Thread(target=lambda: app.run(host='0.0.0.0', port=8080)).start()
-
+  threading.Thread(target=lambda: app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)))).start()
 import os
 import json
 from datetime import datetime
@@ -99,7 +98,7 @@ async def ping(interaction: discord.Interaction):
 async def hola(ctx):
     await ctx.send(f"Hola {ctx.author.mention}")
 
-
+keep_alive()
 bot.run(TOKEN)
 
 
